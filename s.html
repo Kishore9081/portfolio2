@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kishore's Portfolio</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: #eee;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  /* Top Center Title */
+  .title {
+    text-align: center;
+    padding: 20px 0;
+    text-shadow: 0 0 18px #ffdd00;
+  }
+  .title h1 {
+    margin: 0;
+    font-size: 80px;
+    color: #FFD700; /* Elegant Gold for "KISHORE'S" */
+    text-shadow: 0 0 15px #FFD700aa, 0 0 30px #FFEA70aa;
+}
+
+.title h2 {
+    margin: 0;
+    font-size: 50px;
+    color: #FF8C00; /* Elegant Dark Orange for "PORTFOLIO" */
+    text-shadow: 0 0 10px #FF8C00aa, 0 0 25px #FFA500aa;
+}
+
+
+
+  /* Top-left corner text */
+  .top-left {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    font-size: 26px;
+    font-weight: bold;
+    color: #00ffaa;
+    text-shadow: 0 0 10px #ffdd00;
+    z-index: 20;
+  }
+
+  /* Bottom-right corner text */
+  .bottom-right {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffdd00;
+    text-shadow: 0 0 6px #00ffaa;
+    z-index: 20;
+  }
+
+  /* Main Section */
+  .main {
+    display: flex;
+    flex: 1;
+    padding: 20px;
+    gap: 50px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  /* Left side - rotating circle */
+  .left-container {
+    position: relative;
+    width: 600px;
+    height: 600px;
+  }
+
+  .center-photo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 220px;
+    height: 220px; 
+    background: url('pic1.png') center/cover no-repeat;
+    border-radius: 50%;
+    border: 5px solid #fff;
+    box-shadow: 0 0 35px rgba(0,255,170,0.9), 0 0 60px rgba(255,221,0,0.9);
+    animation: float 3s infinite ease-in-out;
+    z-index: 10;
+  }
+  @keyframes float {
+    0%,100% {transform: translate(-50%, -50%) translateY(0);}
+    50% {transform: translate(-50%, -50%) translateY(-10px);}
+  }
+
+  .ring {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    animation: spin 20s linear infinite;
+  }
+  @keyframes spin {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(360deg);}
+  }
+
+  .item {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s, background 0.3s;
+    color: white;
+    box-shadow: 0 0 15px rgba(0,0,0,0.4);
+    font-size: 16px;
+  }
+  .item:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 35px rgba(255,255,255,0.9);
+  }
+
+  .item:nth-of-type(1) { background: #ff4b5c; }
+  .item:nth-of-type(2) { background: #ffa41b; }
+  .item:nth-of-type(3) { background: #4caf50; }
+  .item:nth-of-type(4) { background: #1e90ff; }
+  .item:nth-of-type(5) { background: #9b59b6; }
+  .item:nth-of-type(6) { background: #e84393; }
+  .item:nth-of-type(7) { background: #00b894; }
+
+  /* Right side - content box */
+  .right-container {
+    flex: 1;
+    max-width: 500px;
+  }
+
+  .content-box {
+    background: rgba(0,0,0,0.75);
+    padding: 20px 25px;
+    border-radius: 20px;
+    color: #eee;
+    font-size: 14px;
+    text-align: left;
+    display: none;
+    max-height: 70vh;
+    overflow-y: auto;
+    box-shadow: 0 0 25px #00ffaaaa;
+    opacity: 0;
+    transform: translateX(50px);
+    transition: all 0.5s ease;
+  }
+
+  .content-box.active {
+    display: block;
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .content-box h2 { color: #ffdd00; margin-top: 0; }
+
+  .content-box a { color: #00ffaa; text-decoration: none; }
+  .content-box a:hover { text-decoration: underline; }
+
+  .download-btn {
+    margin-top: 10px;
+    padding: 10px 18px;
+    background: #ffdd00;
+    color: #203a43;
+    font-weight: bold;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .download-btn:hover { background: #ffaa00; }
+
+  /* Scrollbar styling */
+  .content-box::-webkit-scrollbar {
+    width: 6px;
+  }
+  .content-box::-webkit-scrollbar-thumb {
+    background: #ffdd00aa;
+    border-radius: 3px;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .main { flex-direction: column; gap: 30px; }
+    .left-container { width: 400px; height: 400px; }
+    .center-photo { width: 160px; height: 160px; }
+    .item { width: 120px; height: 120px; font-size: 14px; }
+    .right-container { width: 90%; max-width: none; }
+    .top-left { font-size: 20px; }
+    .bottom-right { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Top-left welcome text -->
+<div class="top-left">Welcome to</div>
+
+<!-- Top Center Title -->
+<div class="title">
+  <h1>KISHORE'S</h1>
+  <h2>PORTFOLIO</h2>
+</div>
+
+<div class="main">
+  <!-- Left side circle -->
+  <div class="left-container">
+    <div class="center-photo"></div>
+    <div class="ring" id="ring"></div>
+  </div>
+
+  <!-- Right side content -->
+  <div class="right-container">
+    <div id="About" class="content-box">
+      <h2>About Me</h2>
+      <p>Enthusiastic and detail-oriented Computer Science and Engineering graduate with a strong foundation in programming, data structures, and problem-solving. Seeking an entry-level position in software development or related fields.</p>
+    </div>
+    <div id="Projects" class="content-box">
+      <h2>Projects</h2>
+      <ul>
+        <li>E-commerce website: Frontend HTML/CSS/JS, Backend Python/PHP, DB MySQL</li>
+        <li>Building Portfolio Website</li>
+        <h3>Explore more on GitHub</h3>
+      </ul>
+    </div>
+    <div id="Skills" class="content-box">
+      <h2>Skills</h2>
+      <ul>
+        <li>Technical: Python, CSS, HTML, MySQL, PHP</li>
+        <li>Languages: English, Telugu, Kannada</li>
+        <li>Soft Skills: Teamwork, Critical Thinking, Leadership, Adaptability</li>
+      </ul>
+    </div>
+    <div id="Education" class="content-box">
+      <h2>Education</h2>
+      <p><strong>Bachelor of Science in Computer Engineering (2022-2026)</strong></p>
+      <p>Mother Theresa Institute Of Engineering And Technology - CGPA: 7.5</p>
+      <p><strong>Intermediate (2020-2022)</strong> - Mother Theresa Junior College - 75%</p>
+      <p><strong>Secondary Education (2020)</strong> - Sri Saraswathi High School - CGPA 9.8</p>
+    </div>
+    <div id="Certificates" class="content-box">
+      <h2>Certificates</h2>
+      <ul>
+        <li>National level Hackathon participation</li>
+        <li>Annual Cricket Tournament Championship</li>
+      </ul>
+    </div>
+    <div id="Resume" class="content-box">
+      <h2>Resume</h2>
+      <p>Download my resume:</p>
+      <a href="resume1.pdf" download class="download-btn">Download Resume</a>
+    </div>
+    <div id="Contact" class="content-box">
+      <h2>Contact</h2>
+      <p>Phone: <a href="tel:6305844525">6305844525</a></p>
+      <p>Email: <a href="mailto:kishorekishore07215@gmail.com">kishorekishore07215@gmail.com</a></p>
+      <p>GitHub: <a href="https://github.com/kishore9081" target="_blank">kishore9081</a></p>
+      <p>LinkedIn: <a href="https://www.linkedin.com/in/kishore2005" target="_blank">kishore2005</a></p>
+      <p>Website: <a href="https://kishore9081.github.io/portfolio/" target="_blank">kishore9081.github.io/portfolio/</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- Bottom-right text -->
+<div class="bottom-right">Thank you for visiting!</div>
+
+<script>
+   const items = [
+    {name: "About Me", id:"About"},
+    {name: "Projects", id:"Projects"},
+    {name: "Skills", id:"Skills"},
+    {name: "Education", id:"Education"},
+    {name: "Certificates", id:"Certificates"},
+    {name: "Resume", id:"Resume"},
+    {name: "Contact", id:"Contact"}
+  ];
+
+  const ring = document.getElementById("ring");
+
+  function renderCircle() {
+    ring.innerHTML = ""; // clear old items
+
+    const container = document.querySelector('.left-container');
+    const size = container.offsetWidth;   // dynamic width
+    const center = size / 2;              // dynamic center
+    const itemSize = size * 0.22;         // auto size of circles
+    const radius = size * 0.36;           // dynamic radius
+    const total = items.length;
+    const angleStep = 360 / total;
+
+    items.forEach((item, i) => {
+      const angle = (i * angleStep) * Math.PI / 180;
+
+      const x = center + radius * Math.cos(angle) - itemSize / 2;
+      const y = center + radius * Math.sin(angle) - itemSize / 2;
+
+      const div = document.createElement("div");
+      div.className = "item";
+      div.style.width = itemSize + "px";
+      div.style.height = itemSize + "px";
+      div.style.left = x + "px";
+      div.style.top = y + "px";
+      div.style.fontSize = (itemSize * 0.18) + "px";
+      div.textContent = item.name;
+
+      div.addEventListener("click", () => {
+        document.querySelectorAll('.content-box').forEach(box => box.classList.remove('active'));
+        document.getElementById(item.id).classList.add('active');
+      });
+
+      ring.appendChild(div);
+    });
+  }
+
+  renderCircle();
+  window.addEventListener('resize', renderCircle);  // rerender when screen changes
+</script>
+</body>
+</html>
